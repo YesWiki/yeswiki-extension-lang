@@ -43,6 +43,11 @@ class Lang
         return $this->chunks[$lang];
     }
 
+    public function getLangList()
+    {
+        return array_keys($this->chunks);
+    }
+
     /**
      * Découpe le contenu dans un tableau type :
      *  array(
