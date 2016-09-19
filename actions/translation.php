@@ -3,9 +3,10 @@ namespace Lang;
 
 $loader = require __DIR__ . '/../vendor/autoload.php';
 
-if (!defined("WIKINI_VERSION"))
-{
-    die("acc&egrave;s direct interdit");
+// TODO : a basculer dans __show.php
+// Vérification de sécurité
+if (!defined("WIKINI_VERSION")) {
+    die("accès direct interdit");
 }
 
 $wikireq = $_REQUEST['wiki'];
