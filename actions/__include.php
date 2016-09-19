@@ -1,49 +1,25 @@
 <?php
+namespace Lang;
+
+$loader = require __DIR__ . '/../vendor/autoload.php';
+
 if (!defined("WIKINI_VERSION"))
 {
     die ("acc&egrave;s direct interdit");
 }
 
+$includedpage = $this->LoadPage(trim($this->GetParameter('page')));
 
-// Affichage uniquement du contenu correspondant à la langue en cours
-$translation_found=false;
-
-$includedpage=$this->LoadPage(trim($this->GetParameter('page')));
-
-$chunks = preg_split(
-    "/{{lang=\"([a-zA-Z][a-zA-Z])*\"}}/ms",
-    $this->page["body"],
-    -1,
-    PREG_SPLIT_DELIM_CAPTURE
+$lang = new Lang(
+    $includedpage["body"],
+    $GLOBALS['prefered_language']
 );
 
-// DEBUG
-print("<pre>");
-print_r($chunks);
-print("</pre>");
+if (!isset($_GET['lang'])) {
+    $_GET['lang'] = $GLOBALS['prefered_language'];
+}
 
-if (count($chunks) > 1) {
-
-    for ($t=1;$t<count($chunks);$t=$t+2) {
-        if (preg_match("/{{lang=\"([a-zA-Z][a-zA-Z])*\"}}/",$chunks[$t],$lang_to_display)) {
-          if ($lang_to_display[1]==$GLOBALS['prefered_language']) {
-            $includedpage["body"]=$chunks[$t+1];
-            $translation_found=true;
-          }
-        }
-    }
-    if (!$translation_found) {  // Pas de traduction ? Affichage de la langue par defaut
-		for ($t=1;$t<count($chunks);$t=$t+2) {
-			if (preg_match("/{{lang=\"([a-zA-Z][a-zA-Z])*\"}}/",$chunks[$t],$lang_to_display)) {
-			  if ($lang_to_display[1]==$this->config['default_language']) {
-			    $includedpage["body"]=$chunks[$t+1];
-			  }
-			}
-		}
-    }
+$includedpage["body"] = $lang->get($_GET['lang']);
 
 // Hack : mise a jour du cache avec la nouvelle version.
-	$this->CachePage($includedpage);
-
-}
-?>
+$this->CachePage($includedpage);

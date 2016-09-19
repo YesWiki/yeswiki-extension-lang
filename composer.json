@@ -1,0 +1,21 @@
+{
+    "name": "yeswiki/lang",
+    "description": "Extension pour gérer les pages multilangues",
+    "type": "extension",
+    "license": "GPL3",
+    "authors": [
+        {
+            "name": "Florestan Bredow",
+            "email": "florestan.bredow@supagro.fr"
+        },
+        {
+            "name": "David Delon"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+          "Lang\\": "app"
+        }
+    }
+}
