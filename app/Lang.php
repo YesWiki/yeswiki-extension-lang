@@ -3,7 +3,7 @@ namespace Lang;
 
 /**
  * @author   Florestan Bredow <florestan.bredow@supagro.fr>
- * @license
+ * @license  MIT
  */
 class Lang
 {

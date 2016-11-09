@@ -2,7 +2,7 @@
     "name": "yeswiki/lang",
     "description": "Extension pour gérer les pages multilangues",
     "type": "extension",
-    "license": "GPL3",
+    "license": "MIT",
     "authors": [
         {
             "name": "Florestan Bredow",
